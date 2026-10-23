@@ -1,0 +1,119 @@
+/* The demo adapts the Mosaik empty-state card recipe using theme tokens. */
+:root {
+  font-family: var(--mosaik-font-family, Nunito, sans-serif);
+  color: var(--mosaik-scheme-foreground);
+  background: var(--mosaik-scheme-background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100dvh;
+}
+
+#app, #root, app-root {
+  display: block;
+  min-height: 100dvh;
+}
+
+.starter {
+  container-type: inline-size;
+  box-sizing: border-box;
+  width: 100%;
+  padding: clamp(calc(var(--mosaik-layout-space) * 4), 7.5cqi, calc(var(--mosaik-layout-space) * 12)) clamp(calc(var(--mosaik-layout-space) * 2), 2.5cqi, calc(var(--mosaik-layout-space) * 4));
+}
+
+.starter__container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  gap: calc(var(--mosaik-layout-space) * 3);
+}
+
+.starter__card {
+  box-sizing: border-box;
+  padding: calc(var(--mosaik-layout-space) * 3);
+  gap: calc(var(--mosaik-layout-space) * 3);
+  background: var(--mosaik-scheme-surface);
+  border: 1px solid var(--mosaik-scheme-highlight);
+  border-radius: calc(var(--mosaik-layout-radius) * 1.5);
+  flex: none;
+  min-width: 0;
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+.starter__header {
+  flex: none;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: calc(var(--mosaik-layout-space) * 1.5) calc(var(--mosaik-layout-space) * 2);
+}
+
+.starter__intro {
+  flex: 1 1 180px;
+  gap: calc(var(--mosaik-layout-space) * 0.5);
+  min-width: 0;
+}
+
+.starter__title {
+  --text-font-size: 16px;
+  --text-font-weight: 600;
+  --text-font-letter-spacing: -0.01em;
+  --text-font-line-height: 1.35;
+}
+
+.starter__description {
+  --text-font-size: 14px;
+  --text-foreground-color: var(--mosaik-scheme-lowlight);
+  --text-font-line-height: 1.5;
+}
+
+.starter__content {
+  flex: none;
+  box-sizing: border-box;
+  gap: calc(var(--mosaik-layout-space) * 1.5);
+  padding: calc(var(--mosaik-layout-space) * 3.5) calc(var(--mosaik-layout-space) * 3);
+  border: 1px dashed color-mix(in oklab, var(--mosaik-scheme-foreground) 14%, transparent);
+  border-radius: calc(var(--mosaik-layout-radius) * 1.5);
+  text-align: center;
+}
+
+.starter__pulse {
+  --pulse-size: 76px;
+}
+
+.starter__icon {
+  --icon-size: 40px;
+  --icon-foreground-color: var(--mosaik-scheme-lowlight);
+  flex: none;
+}
+
+.starter__message {
+  flex: none;
+  gap: calc(var(--mosaik-layout-space) * 0.75);
+  max-width: 100%;
+}
+
+.starter__counter {
+  --text-font-size: 14px;
+  --text-font-weight: 600;
+  --text-font-line-height: 1.4;
+}
+
+.starter__hint {
+  --text-font-size: 14px;
+  --text-font-line-height: 1.6;
+  --text-foreground-color: var(--mosaik-scheme-lowlight);
+  text-wrap: pretty;
+}
+
+.starter__action {
+  margin-top: calc(var(--mosaik-layout-space) * 0.5);
+}
