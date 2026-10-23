@@ -58,6 +58,10 @@ CI only verifies the application. It does not publish packages, create release t
 
 ## Current published-package limitations
 
+The published `mosaik-elements` core package has inconsistent import/folder casing in 0.1.174–0.1.177, which breaks Linux builds. This starter therefore uses an explicit npm override for **`@pixel-brewery/mosaik-elements@0.1.171`**, while the framework/Foundation/theme/icon packages remain pinned at 0.1.177. The public core type contracts match; 16 of 17 runtime modules are unchanged apart from path casing. The older core retains its earlier `orderBy` sorting behavior and does not contain the later sorting corrections. The demo does not use those helpers. See [the packaging issue and removal prerequisite](https://github.com/RueDeRennes/mosaik/issues/770).
+
+Keep this override until the owner publishes a corrected core version and you verify the new version on a case-sensitive system. To adopt that release, update the relevant Mosaik pins, remove the override, regenerate the lockfile and run all checks in this repository.
+
 Mosaik 0.1.177's supported root entry points retain a large core component/style graph even for this small example. Production entry bundles are currently approximately 14–15 MB before transfer compression. This starter preserves the supported APIs; it does not patch dependencies or suppress component registration. See [the package-boundary issue](https://github.com/RueDeRennes/mosaik/issues/964).
 
 Published dependency source maps currently refer to sources absent from the installed packages, so tests can emit third-party source-map warnings. They do not prevent the verification commands from passing. See [the source-map issue](https://github.com/RueDeRennes/mosaik/issues/963).
