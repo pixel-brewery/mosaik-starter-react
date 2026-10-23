@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: cron
+      cronjob: "37 4 * * *"
+    cooldown:
+      exclude:
+        - "@pixel-brewery/mosaik-*"
+    allow:
+      - dependency-name: "@pixel-brewery/mosaik-*"
+    groups:
+      mosaik:
+        patterns:
+          - "@pixel-brewery/mosaik-*"
+    versioning-strategy: increase
+    open-pull-requests-limit: 1

@@ -12,10 +12,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@pixel-brewery/mosaik-elements-foundation": "0.1.177",
-    "@pixel-brewery/mosaik-elements-react": "0.1.177",
-    "@pixel-brewery/mosaik-icons": "0.1.177",
-    "@pixel-brewery/mosaik-themes": "0.1.177",
+    "@pixel-brewery/mosaik-elements-foundation": "0.1.178",
+    "@pixel-brewery/mosaik-elements-react": "0.1.178",
+    "@pixel-brewery/mosaik-icons": "0.1.178",
+    "@pixel-brewery/mosaik-themes": "0.1.178",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "reflect-metadata": "0.2.2"
@@ -41,8 +41,5 @@
   "engines": {
     "node": "^24.15.0 || >=26.0.0",
     "npm": ">=11.0.0"
-  },
-  "overrides": {
-    "@pixel-brewery/mosaik-elements": "0.1.171"
   }
 }

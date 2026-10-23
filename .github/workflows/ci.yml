@@ -14,6 +14,7 @@ jobs:
     timeout-minutes: 15
     env:
       MOSAIK_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NPM_CONFIG_USERCONFIG: ${{ github.workspace }}/.npmrc.auth
     steps:
       - name: Check out source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -22,6 +23,34 @@ jobs:
         with:
           node-version-file: .node-version
           cache: npm
+      - name: Check Mosaik release consistency
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { readFileSync } from 'node:fs';
+
+          const manifest = JSON.parse(readFileSync('package.json', 'utf8'));
+          const lock = JSON.parse(readFileSync('package-lock.json', 'utf8'));
+          const dependencies = Object.entries({
+            ...manifest.dependencies,
+            ...manifest.devDependencies,
+            ...manifest.optionalDependencies
+          }).filter(([name]) => name.startsWith('@pixel-brewery/mosaik-'));
+
+          assert(dependencies.length > 0, 'Expected Mosaik dependencies');
+          const version = dependencies[0][1];
+          assert.match(version, /^\d+\.\d+\.\d+$/, 'Pin an exact stable Mosaik version');
+          for (const [name, declared] of dependencies) {
+            assert.equal(declared, version, `${name} must use Mosaik ${version}`);
+            assert.equal(lock.packages[`node_modules/${name}`]?.version, version, `${name} lockfile mismatch`);
+          }
+          for (const [path, dependency] of Object.entries(lock.packages)) {
+            if (/(?:^|\/)node_modules\/@pixel-brewery\/mosaik-[^/]+$/.test(path)) {
+              assert.equal(dependency.version, version, `${path} must use Mosaik ${version}`);
+            }
+          }
+          console.log(`Mosaik ${version}: manifest and lockfile are consistent`);
+          NODE
       - name: Install locked dependencies
         run: npm ci
       - name: Lint
