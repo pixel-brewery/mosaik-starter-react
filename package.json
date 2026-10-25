@@ -12,10 +12,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@pixel-brewery/mosaik-elements-foundation": "0.1.179",
-    "@pixel-brewery/mosaik-elements-react": "0.1.179",
-    "@pixel-brewery/mosaik-icons": "0.1.179",
-    "@pixel-brewery/mosaik-themes": "0.1.179",
+    "@pixel-brewery/mosaik-elements-foundation": "0.1.180",
+    "@pixel-brewery/mosaik-elements-react": "0.1.180",
+    "@pixel-brewery/mosaik-icons": "0.1.180",
+    "@pixel-brewery/mosaik-themes": "0.1.180",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "reflect-metadata": "0.2.2"
