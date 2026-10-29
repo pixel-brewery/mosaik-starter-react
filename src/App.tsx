@@ -1,4 +1,8 @@
-import { Button, Icon, Pulse, Stack, Text } from '@pixel-brewery/mosaik-elements-react';
+import { Button } from '@pixel-brewery/mosaik-elements-react/components/button';
+import { Icon } from '@pixel-brewery/mosaik-elements-react/components/icon';
+import { Pulse } from '@pixel-brewery/mosaik-elements-react/components/pulse';
+import { Stack } from '@pixel-brewery/mosaik-elements-react/components/stack';
+import { Text } from '@pixel-brewery/mosaik-elements-react/components/text';
 import { useState } from 'react';
 
 /**

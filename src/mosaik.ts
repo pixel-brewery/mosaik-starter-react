@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { ThemeService } from '@pixel-brewery/mosaik-elements-foundation';
+import { ThemeService } from '@pixel-brewery/mosaik-elements-foundation/dist/theming/ThemeService';
 import { LucideAliases } from '@pixel-brewery/mosaik-elements-foundation/icons/lucide';
 import { registerIconSet, setDefaultIconSet } from '@pixel-brewery/mosaik-icons';
 import { lucidePlus, lucideSparkles } from '@pixel-brewery/mosaik-icons/lucide';
