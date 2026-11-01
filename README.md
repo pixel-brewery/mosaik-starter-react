@@ -67,6 +67,10 @@ Mosaik packages bypass the default Dependabot cooldown, so a newly published rel
 
 The repository's CI checks Mosaik release consistency and runs a clean `npm ci`, lint, typecheck, behavior tests and production build. It uses its own GitHub Actions token with `contents: read` and `packages: read`; no reusable personal credential is stored in the workflow. If you change to private packages, grant that repository the required package access before expecting CI to install them.
 
+CI runs on pushes, pull requests, merge queues and manual dispatches. The stable `Quality Gate` check succeeds only when the complete `verify` job succeeds; failure, cancellation or a skipped verification job fails the gate. Configure `Quality Gate` as a required branch check after this workflow revision is published and the check has run. Keep `verify` required during that rollout.
+
+The dependency-free public-content guard runs in the existing verification job and rejects excluded private project references in tracked/new source paths, text, symbolic links and decoded gzip archives. Run `node tools/verify-public-content.mjs` and `node --test tools/verify-public-content.spec.mjs` locally. Ignored development output remains outside the source scan.
+
 CI only verifies the application. It does not publish packages, create release tags or deploy a website.
 
 ## Bundle size
