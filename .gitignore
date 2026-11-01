@@ -10,3 +10,4 @@ test-results/
 !.env.example
 *.local
 .DS_Store
+.codex-work/

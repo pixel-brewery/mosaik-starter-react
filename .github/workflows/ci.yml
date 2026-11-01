@@ -3,6 +3,8 @@ name: CI
 on:
   push:
   pull_request:
+  merge_group:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -23,6 +25,10 @@ jobs:
         with:
           node-version-file: .node-version
           cache: npm
+      - name: Check public source and decoded archives
+        run: node tools/verify-public-content.mjs
+      - name: Test public-content enforcement
+        run: node --test tools/verify-public-content.spec.mjs
       - name: Check Mosaik release consistency
         run: |
           node --input-type=module <<'NODE'
@@ -61,3 +67,22 @@ jobs:
         run: npm test
       - name: Build production application
         run: npm run build
+
+  quality-gate:
+    name: Quality Gate
+    needs: verify
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Require successful application verification
+        shell: bash
+        env:
+          VERIFY_RESULT: ${{ needs.verify.result }}
+        run: |
+          if [ "$VERIFY_RESULT" != success ]; then
+            echo 'Application verification must succeed.' >&2
+            exit 1
+          fi
