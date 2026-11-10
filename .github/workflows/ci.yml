@@ -44,18 +44,21 @@ jobs:
           }).filter(([name]) => name.startsWith('@pixel-brewery/mosaik-'));
 
           assert(dependencies.length > 0, 'Expected Mosaik dependencies');
-          const version = dependencies[0][1];
-          assert.match(version, /^\d+\.\d+\.\d+$/, 'Pin an exact stable Mosaik version');
+          const root = lock.packages[''] ?? {};
+          const lockedRoot = { ...root.dependencies, ...root.devDependencies, ...root.optionalDependencies };
+          const version = lock.packages[`node_modules/${dependencies[0][0]}`]?.version ?? '';
+          assert.match(version, /^\d+\.\d+\.\d+$/, 'Lock an exact stable Mosaik release');
           for (const [name, declared] of dependencies) {
-            assert.equal(declared, version, `${name} must use Mosaik ${version}`);
-            assert.equal(lock.packages[`node_modules/${name}`]?.version, version, `${name} lockfile mismatch`);
+            assert.equal(declared, 'latest', `${name} must declare latest`);
+            assert.equal(lockedRoot[name], 'latest', `${name} lockfile root must declare latest`);
+            assert.equal(lock.packages[`node_modules/${name}`]?.version, version, `${name} must lock Mosaik ${version}`);
           }
           for (const [path, dependency] of Object.entries(lock.packages)) {
             if (/(?:^|\/)node_modules\/@pixel-brewery\/mosaik-[^/]+$/.test(path)) {
               assert.equal(dependency.version, version, `${path} must use Mosaik ${version}`);
             }
           }
-          console.log(`Mosaik ${version}: manifest and lockfile are consistent`);
+          console.log(`Mosaik latest, locked to ${version}: manifest and lockfile are consistent`);
           NODE
       - name: Install locked dependencies
         run: npm ci
