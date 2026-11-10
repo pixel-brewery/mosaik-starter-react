@@ -47,15 +47,15 @@ The example adapts the Mosaik Studio catalog recipe `recipe-empty-state-card--wi
 
 ## Independent maintenance
 
-This repository has its own framework/toolchain versions, Mosaik package pins, lockfile and CI. It does not depend on an Nx workspace, a Mosaik checkout, the Studio API or a shared Mosaik release workflow.
+This repository has its own framework/toolchain versions, Mosaik package declarations, lockfile and CI. It does not depend on an Nx workspace, a Mosaik checkout, the Studio API or a shared Mosaik release workflow.
 
 Update this starter's framework independently, regenerate its lockfile with npm and run all verification commands. The application package is private to prevent accidental npm publication.
 
 ### Mosaik package updates
 
-`.github/dependabot.yml` checks for Mosaik updates every day at 04:37 UTC, including weekends. Keep this configuration on the repository's default branch and enable Dependabot version updates. It groups `@pixel-brewery/mosaik-*` updates into one pull request, keeping exact versions in `package.json` and updating `package-lock.json` together. This removes manual version edits while keeping installations reproducible. Framework and toolchain updates remain separate.
+`.github/dependabot.yml` checks for Mosaik updates every day at 04:37 UTC, including weekends. Keep this configuration on the repository's default branch and enable Dependabot version updates. It groups `@pixel-brewery/mosaik-*` updates into one pull request, `package.json` declares every Mosaik package as `latest`, so updates change only `package-lock.json`. The lockfile pins the release, which keeps installations reproducible without manual version edits. Framework and toolchain updates remain separate.
 
-CI requires all direct and locked Mosaik packages to use the same exact stable release, then runs the checks below. If a release is still being published, a mixed-version update fails until the remaining packages are available and Dependabot refreshes it. Review and merge a successful update pull request to make that release the template's current version; automatic merging is not configured.
+CI requires every direct Mosaik package to declare `latest` and all locked Mosaik packages to resolve to the same exact stable release, then runs the checks below. If a release is still being published, a mixed-version update fails until the remaining packages are available and Dependabot refreshes it. Review and merge a successful update pull request to make that release the template's current version; automatic merging is not configured.
 
 For automatic Dependabot authentication, grant this repository **Read** access in each Mosaik package's **Manage Actions access** settings. No long-lived Dependabot package token is needed. See [automatic Dependabot access to GitHub registries](https://docs.github.com/en/code-security/concepts/supply-chain-security/automatic-dependabot-access-to-github-registries). This does not replace the package-read token needed for local installation.
 
