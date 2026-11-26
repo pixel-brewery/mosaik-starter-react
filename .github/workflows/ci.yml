@@ -5,6 +5,12 @@ on:
   pull_request:
   merge_group:
   workflow_dispatch:
+    inputs:
+      expected_head_sha:
+        description: Exact source requested by the trusted dependency controller
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: read
@@ -20,11 +26,19 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Set up Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .node-version
           cache: npm
+      - name: Require the requested dependency source
+        env:
+          EXPECTED_HEAD_SHA: ${{ inputs.expected_head_sha }}
+        run: test -z "$EXPECTED_HEAD_SHA" || test "$EXPECTED_HEAD_SHA" = "$GITHUB_SHA"
+      - name: Test trusted dependency automation
+        run: node --test .github/scripts/createDependabotAutomation.spec.mjs
       - name: Check public source and decoded archives
         run: node tools/verify-public-content.mjs
       - name: Test public-content enforcement
