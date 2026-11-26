@@ -1,0 +1,16 @@
+{
+  "repository": "pixel-brewery/mosaik-starter-react",
+  "repositoryId": 1430734204,
+  "workflowFile": "ci.yml",
+  "workflowName": "CI",
+  "requiredJobs": [
+    "verify",
+    "Quality Gate"
+  ],
+  "postMergeWorkflows": [
+    {
+      "file": "ci.yml"
+    }
+  ],
+  "normalizeMosaikLockRoot": true
+}

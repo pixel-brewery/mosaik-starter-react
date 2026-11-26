@@ -1,18 +1,26 @@
 version: 2
 updates:
   - package-ecosystem: npm
-    directory: "/"
+    directory: /
     schedule:
-      interval: cron
-      cronjob: "37 4 * * *"
-    cooldown:
-      exclude:
-        - "@pixel-brewery/mosaik-*"
-    allow:
-      - dependency-name: "@pixel-brewery/mosaik-*"
+      interval: weekly
+      day: monday
+    rebase-strategy: auto
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
     groups:
       mosaik:
-        patterns:
-          - "@pixel-brewery/mosaik-*"
-    versioning-strategy: lockfile-only
-    open-pull-requests-limit: 1
+        patterns: ['@pixel-brewery/mosaik-*', '@pixel-brewery/markdowner-*']
+      angular:
+        patterns: ['@angular/*', '@angular-devkit/*', '@schematics/*']
+      nx:
+        patterns: ['nx', '@nx/*']
+      testing:
+        patterns: ['vitest', '@vitest/*', 'playwright', '@playwright/*']
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    rebase-strategy: auto
+    open-pull-requests-limit: 5
