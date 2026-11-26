@@ -53,9 +53,9 @@ Update this starter's framework independently, regenerate its lockfile with npm 
 
 ### Mosaik package updates
 
-`.github/dependabot.yml` checks for Mosaik updates every day at 04:37 UTC, including weekends. Keep this configuration on the repository's default branch and enable Dependabot version updates. It groups `@pixel-brewery/mosaik-*` updates into one pull request, `package.json` declares every Mosaik package as `latest`, so updates change only `package-lock.json`. The lockfile pins the release, which keeps installations reproducible without manual version edits. Framework and toolchain updates remain separate.
+`.github/dependabot.yml` checks every Monday for Mosaik, framework, tooling and GitHub Actions updates, including major versions. It groups `@pixel-brewery/mosaik-*` updates into one pull request and changes the exact manifest and lockfile versions together. Framework and toolchain updates remain separate.
 
-CI requires every direct Mosaik package to declare `latest` and all locked Mosaik packages to resolve to the same exact stable release, then runs the checks below. If a release is still being published, a mixed-version update fails until the remaining packages are available and Dependabot refreshes it. Review and merge a successful update pull request to make that release the template's current version; automatic merging is not configured.
+CI requires matching exact stable Mosaik declarations in the manifest and lockfile root, plus one consistent release across all direct and nested resolved Mosaik packages, then runs the checks below. Mixed or partly published releases remain blocked. The trusted controller merges verified Dependabot updates automatically after the complete exact-head checks pass against the current base. See [dependency automation](docs/dependabot.md).
 
 For automatic Dependabot authentication, grant this repository **Read** access in each Mosaik package's **Manage Actions access** settings. No long-lived Dependabot package token is needed. See [automatic Dependabot access to GitHub registries](https://docs.github.com/en/code-security/concepts/supply-chain-security/automatic-dependabot-access-to-github-registries). This does not replace the package-read token needed for local installation.
 
