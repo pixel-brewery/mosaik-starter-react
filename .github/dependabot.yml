@@ -7,7 +7,7 @@ updates:
       day: monday
     rebase-strategy: auto
     open-pull-requests-limit: 10
-    versioning-strategy: increase
+    versioning-strategy: increase-if-necessary
     groups:
       mosaik:
         patterns: ['@pixel-brewery/mosaik-*', '@pixel-brewery/markdowner-*']
