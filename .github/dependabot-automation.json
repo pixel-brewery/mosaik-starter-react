@@ -11,5 +11,6 @@
     {
       "file": "ci.yml"
     }
-  ]
+  ],
+  "reviewedCiSha256": "d822302953bd4038e2a817e0e6085c17a4ea85ffdbdd2f52f95eab44c09cb9e5"
 }
