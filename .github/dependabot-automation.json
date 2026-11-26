@@ -11,6 +11,5 @@
     {
       "file": "ci.yml"
     }
-  ],
-  "normalizeMosaikLockRoot": true
+  ]
 }
