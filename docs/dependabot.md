@@ -9,3 +9,5 @@ A stale branch is refreshed with its expected head and receives a fresh, read-on
 Mosaik starter lockfiles retain their manifest's `latest` root specifications. The only automatic lockfile repair changes erroneous `*` Mosaik root entries back to `latest`; resolved package versions and integrity data remain unchanged. The repaired head must pass full verification before merging.
 
 Merges made with the native workflow token do not trigger normal push workflows. The controller explicitly requests source-bound main verification and, when affected, the existing Pages workflow, deduplicating prior dispatches. No package release is introduced.
+
+If a token-authored repair or a later Dependabot rebase requires PR-workflow approval, the controller dispatches the same read-only CI at the unchanged exact head. It waits for an ordinary queued or running PR verification and never substitutes an approval decision for successful checks. Npm updates use `increase-if-necessary` so existing `latest` declarations still receive lockfile updates while pinned dependencies can advance through major versions.
