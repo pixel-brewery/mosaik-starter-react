@@ -8,7 +8,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 export default defineConfig([
   globalIgnores(['dist']),
   {
-    files: ['tools/**/*.mjs', '.github/scripts/**/*.mjs'],
+    files: ['tools/**/*.mjs'],
     extends: [js.configs.recommended],
     languageOptions: {
       globals: globals.node,
