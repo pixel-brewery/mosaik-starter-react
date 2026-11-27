@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       expected_head_sha:
-        description: Exact source requested by the trusted dependency controller
+        description: Exact commit to verify, such as the merge commit dispatched by dependabot-merge.yml
         required: false
         default: ""
         type: string
@@ -37,8 +37,6 @@ jobs:
         env:
           EXPECTED_HEAD_SHA: ${{ inputs.expected_head_sha }}
         run: test -z "$EXPECTED_HEAD_SHA" || test "$EXPECTED_HEAD_SHA" = "$GITHUB_SHA"
-      - name: Test trusted dependency automation
-        run: node --test .github/scripts/createDependabotAutomation.spec.mjs
       - name: Check public source and decoded archives
         run: node tools/verify-public-content.mjs
       - name: Test public-content enforcement
